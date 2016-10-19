@@ -4,22 +4,26 @@ class GildedRose
     @items = items
   end
 
-  def item_exceptional(item_name)
-    exceptionals = ["brie", "Conjurer", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
-    exceptionals.include?(item_name)
-  end
-
   def update(item)
     item_name = item.name
-    if self.item_exceptional(item_name)
-      self.init_exceptional_item_handler(item_name)
+    if item_exceptional(item_name)
+      init_exceptional_item_handler(item_name)
     else
     item.sell_in -= 1
     item.quality -= 1
     end
   end
 
+  private
+
+  attr_reader :item_exceptional, :init_exceptional_item_handler
+
   EXCEPTIONAL_ITEMS = {"brie" => InverseUpdate, "backstage_pass" => InverseUpdate }
+
+  def item_exceptional(item_name)
+    exceptionals = ["brie", "Conjurer", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
+    exceptionals.include?(item_name)
+  end
 
   def init_exceptional_item_handler(item_name)
     EXCEPTIONAL_ITEMS[item_name].new

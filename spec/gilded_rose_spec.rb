@@ -46,7 +46,7 @@ describe GildedRose do
 
     it "selects handler class by name of item and instantiates it" do
       brie_name = brie.name
-      expect(rose.init_exceptional_item_handler(brie_name)).to be_kind_of InverseUpdate
+      expect(rose.send(:init_exceptional_item_handler, brie_name)).to be_kind_of InverseUpdate
     end
   end
 
@@ -54,12 +54,12 @@ describe GildedRose do
 
     it "returns true if has exceptional updating rules" do
       item_name = exceptionals_sample
-      expect(rose.item_exceptional(item_name)).to eq true
+      expect(rose.send(:item_exceptional, item_name)).to eq true
     end
 
     it "returns false if item does not have exceptional updating rules" do
       item_name = non_exceptionals_sample
-      expect(rose.item_exceptional(item_name)).to eq false
+      expect(rose.send(:item_exceptional, item_name)).to eq false
     end
   end
 
