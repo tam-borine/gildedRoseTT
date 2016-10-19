@@ -12,20 +12,34 @@ describe GildedRose do
     @rose = GildedRose.new(items)
   end
 
+
+  describe "#update" do
+
+    attr_accessor :item, :brie
+
+    before (:each) do
+      @item = spy("item")
+      @brie = spy("brie")
+      allow(rose).to receive(:update_exceptional_item)
+    end
+
+    it "makes item modify itself for nonexceptional items" do
+      rose.update(item)
+      expect(item).to have_received (:sell_in)
+      expect(item).to have_received (:quality)
+    end
+
+    it "calls update_exceptional_item for exceptional items"do
+      rose.update(brie)
+      expect(rose).to have_received(:update_exceptional_item)
+    end
+  end
+
   describe "#update_quality" do
     it "does not change the name" do
       pending "this test is pending because it's legacy code"
       items[0].name.should == "fixme"
     end
-  end
-
-  describe "#update_sell_in" do
-    it "decrements sell_in of non exceptional items" do
-      item = spy("item")
-      allow(item).to receive(:sell_in)
-      expect{rose.update_sell_in(item)}.to change{item.sell_in}.by -1
-    end
-
   end
 
   describe "#item_exceptional?" do #still need to add Conjured
