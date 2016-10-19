@@ -3,6 +3,11 @@ class GildedRose
     @items = items
   end
 
+  def item_exceptional(item)
+    exceptionals = ["Aged Brie", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
+    exceptionals.include?(item)
+  end
+
   def update_quality()
     @items.each do |item|
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
