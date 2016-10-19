@@ -50,8 +50,7 @@ describe GildedRose do
     end
   end
 
-  describe "#item_exceptional" do #still need to add Conjured
-
+  describe "#item_exceptional" do 
     it "returns true if has exceptional updating rules" do
       item = exceptionals_sample
       expect(rose.send(:item_exceptional, item)).to eq true

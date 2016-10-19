@@ -21,16 +21,12 @@ class GildedRose
   EXCEPTIONAL_ITEMS = {"brie" => InverseUpdate, "backstage_pass" => InverseUpdate }
 
   def item_exceptional(item)
-    item_name = item.name
-    puts item_name
-    puts "above"
     exceptionals = ["brie", "sulfuras", "backstage_pass", "conjurer"]
-    exceptionals.include?(item_name)
+    exceptionals.include?(item.name)
   end
 
   def exceptional_item_handler(item)
-    item_name = item.name
-    EXCEPTIONAL_ITEMS[item_name].new(item).update
+    EXCEPTIONAL_ITEMS[item.name].new(item).update
   end
 
 end
