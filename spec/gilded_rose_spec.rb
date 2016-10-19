@@ -20,7 +20,7 @@ describe GildedRose do
     before (:each) do
       @item = spy("item")
       @brie = spy("brie", name: "brie")
-      allow(rose).to receive(:update_exceptional_item)
+      allow(rose).to receive(:init_exceptional_item_handler)
     end
 
     it "makes item modify itself for nonexceptional items" do
@@ -29,17 +29,24 @@ describe GildedRose do
       expect(item).to have_received (:quality)
     end
 
-    it "calls update_exceptional_item for exceptional items"do
+    it "calls init_exceptional_item_handler for exceptional items"do
       rose.update(brie)
-      expect(rose).to have_received(:update_exceptional_item)
+      expect(rose).to have_received(:init_exceptional_item_handler)
     end
 
   end
 
-  describe "#update_quality" do
-    it "does not change the name" do
-      pending "this test is pending because it's legacy code"
-      items[0].name.should == "fixme"
+  describe "#init_exceptional_item_handler" do
+    attr_reader :brie
+    before (:each) do
+      @item = spy("item")
+      @brie = spy("brie", name: "brie")
+      # allow(rose).to receive(:init_exceptional_item_handler)
+    end
+
+    it "selects handler class by name of item and instantiates it" do
+      brie_name = brie.name
+      expect(rose.init_exceptional_item_handler(brie_name)).to be_kind_of InverseUpdate
     end
   end
 

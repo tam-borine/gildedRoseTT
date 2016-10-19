@@ -1,3 +1,4 @@
+require_relative './inverse_update.rb'
 class GildedRose
   def initialize(items)
     @items = items
@@ -9,15 +10,19 @@ class GildedRose
   end
 
   def update(item)
-    if self.item_exceptional(item.name)
-      self.update_exceptional_item
+    item_name = item.name
+    if self.item_exceptional(item_name)
+      self.init_exceptional_item_handler(item_name)
     else
     item.sell_in -= 1
     item.quality -= 1
     end
   end
 
-  def update_exceptional_item
+  EXCEPTIONAL_ITEMS = {"brie" => InverseUpdate, "backstage_pass" => InverseUpdate }
+
+  def init_exceptional_item_handler(item_name)
+    EXCEPTIONAL_ITEMS[item_name].new
   end
 
 
