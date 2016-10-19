@@ -20,7 +20,7 @@ describe GildedRose do
     before (:each) do
       @item = spy("item")
       @brie = spy("brie", name: "brie")
-      allow(rose).to receive(:init_exceptional_item_handler)
+      allow(rose).to receive(:exceptional_item_handler)
     end
 
     it "makes item modify itself for nonexceptional items" do
@@ -29,24 +29,24 @@ describe GildedRose do
       expect(item).to have_received (:quality)
     end
 
-    it "calls init_exceptional_item_handler for exceptional items"do
+    it "calls exceptional_item_handler for exceptional items"do
       rose.update(brie)
-      expect(rose).to have_received(:init_exceptional_item_handler)
+      expect(rose).to have_received(:exceptional_item_handler)
     end
 
   end
 
-  describe "#init_exceptional_item_handler" do
+  describe "#exceptional_item_handler" do
     attr_reader :brie
     before (:each) do
       @item = spy("item")
       @brie = spy("brie", name: "brie")
-      # allow(rose).to receive(:init_exceptional_item_handler)
+      # allow(rose).to receive(:exceptional_item_handler)
     end
 
-    it "selects handler class by name of item and instantiates it" do
+    it "does not return falsyness because it selects handler class by name of item instantiates it and calls update" do
       brie_name = brie.name
-      expect(rose.send(:init_exceptional_item_handler, brie_name)).to be_kind_of InverseUpdate
+      expect(rose.send(:exceptional_item_handler, brie_name)).to be_truthy
     end
   end
 

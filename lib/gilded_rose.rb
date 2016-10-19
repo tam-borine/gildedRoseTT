@@ -7,7 +7,7 @@ class GildedRose
   def update(item)
     item_name = item.name
     if item_exceptional(item_name)
-      init_exceptional_item_handler(item_name)
+      exceptional_item_handler(item_name)
     else
     item.sell_in -= 1
     item.quality -= 1
@@ -16,7 +16,7 @@ class GildedRose
 
   private
 
-  attr_reader :item_exceptional, :init_exceptional_item_handler
+  attr_reader :item_exceptional, :exceptional_item_handler
 
   EXCEPTIONAL_ITEMS = {"brie" => InverseUpdate, "backstage_pass" => InverseUpdate }
 
@@ -25,8 +25,8 @@ class GildedRose
     exceptionals.include?(item_name)
   end
 
-  def init_exceptional_item_handler(item_name)
-    EXCEPTIONAL_ITEMS[item_name].new
+  def exceptional_item_handler(item_name)
+    EXCEPTIONAL_ITEMS[item_name].new.update
   end
 
 
