@@ -1,4 +1,7 @@
+require_relative './sell_in.rb'
+
 class GildedRose
+  include SellIn
   def initialize(items)
     @items = items
   end
@@ -6,6 +9,10 @@ class GildedRose
   def item_exceptional(item)
     exceptionals = ["Aged Brie", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
     exceptionals.include?(item)
+  end
+
+  def update_sell_in(item)
+    SellIn::DAYS -= 1
   end
 
   def update_quality()

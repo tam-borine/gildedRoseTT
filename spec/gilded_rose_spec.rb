@@ -1,8 +1,16 @@
 require 'spec_helper'
 require 'gilded_rose'
+require 'item'
 
 describe GildedRose do
   # items = [Item.new("foo", 0, 0)]
+  attr_reader :items, :rose
+
+  before (:all) do
+    include Helpers
+    @items = object_double("items")
+    @rose = GildedRose.new(items)
+  end
 
   describe "#update_quality" do
     it "does not change the name" do
@@ -11,14 +19,16 @@ describe GildedRose do
     end
   end
 
-  describe "#item_exceptional?" do #still need to add Conjured
-    attr_reader :items, :rose
-
-    before (:each) do
-      include Helpers
-      @items = object_double("items")
-      @rose = GildedRose.new(items)
+  describe "#update_sell_in" do
+    it "decrements sell_in of non exceptional items" do
+      item = spy("item")
+      allow(item).to receive(:sell_in)
+      expect{rose.update_sell_in(item)}.to change{item.sell_in}.by -1
     end
+
+  end
+
+  describe "#item_exceptional?" do #still need to add Conjured
 
     it "returns true if has exceptional updating rules" do
       item = exceptionals_sample
