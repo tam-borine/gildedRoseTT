@@ -19,7 +19,7 @@ describe GildedRose do
 
     before (:each) do
       @item = spy("item")
-      @brie = spy("brie")
+      @brie = spy("brie", name: "brie")
       allow(rose).to receive(:update_exceptional_item)
     end
 
@@ -33,6 +33,7 @@ describe GildedRose do
       rose.update(brie)
       expect(rose).to have_received(:update_exceptional_item)
     end
+
   end
 
   describe "#update_quality" do
@@ -42,16 +43,16 @@ describe GildedRose do
     end
   end
 
-  describe "#item_exceptional?" do #still need to add Conjured
+  describe "#item_exceptional" do #still need to add Conjured
 
     it "returns true if has exceptional updating rules" do
-      item = exceptionals_sample
-      expect(rose.item_exceptional(item)).to eq true
+      item_name = exceptionals_sample
+      expect(rose.item_exceptional(item_name)).to eq true
     end
 
     it "returns false if item does not have exceptional updating rules" do
-      item = non_exceptionals_sample
-      expect(rose.item_exceptional(item)).to eq false
+      item_name = non_exceptionals_sample
+      expect(rose.item_exceptional(item_name)).to eq false
     end
   end
 

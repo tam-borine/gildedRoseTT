@@ -3,15 +3,18 @@ class GildedRose
     @items = items
   end
 
-  def item_exceptional(item)
-    exceptionals = ["Aged Brie", "Conjurer", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
-    exceptionals.include?(item)
+  def item_exceptional(item_name)
+    exceptionals = ["brie", "Conjurer", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
+    exceptionals.include?(item_name)
   end
 
   def update(item)
+    if self.item_exceptional(item.name)
+      self.update_exceptional_item
+    else
     item.sell_in -= 1
     item.quality -= 1
-    self.update_exceptional_item
+    end
   end
 
   def update_exceptional_item
