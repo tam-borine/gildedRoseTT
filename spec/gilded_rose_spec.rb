@@ -45,21 +45,22 @@ describe GildedRose do
     end
 
     it "does not return falsyness because it selects handler class by name of item instantiates it and calls update" do
-      brie_name = brie.name
-      expect(rose.send(:exceptional_item_handler, brie_name)).to be_truthy
+
+      expect(rose.send(:exceptional_item_handler, brie)).to be_truthy
     end
   end
 
   describe "#item_exceptional" do #still need to add Conjured
 
     it "returns true if has exceptional updating rules" do
-      item_name = exceptionals_sample
-      expect(rose.send(:item_exceptional, item_name)).to eq true
+      item = exceptionals_sample
+      expect(rose.send(:item_exceptional, item)).to eq true
     end
 
     it "returns false if item does not have exceptional updating rules" do
-      item_name = non_exceptionals_sample
-      expect(rose.send(:item_exceptional, item_name)).to eq false
+      item = non_exceptionals_sample
+
+      expect(rose.send(:item_exceptional, item)).to eq false
     end
   end
 

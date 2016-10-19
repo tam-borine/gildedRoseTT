@@ -1,8 +1,12 @@
 class InverseUpdate
-  def initialize
+
+
+  def initialize(item)
+    @item = item
   end
 
   def update
-    6
+    @item.sell_in -= 1
+    @item.quality += 3
   end
 end
