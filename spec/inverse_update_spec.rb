@@ -4,13 +4,14 @@ describe InverseUpdate do
 
   attr_reader :item, :inverse_update
 
-  before (:all) do
+  before (:each) do
     @item = spy("item")
     @inverse_update = described_class.new(item)
   end
 
-  it "quality of item is increased and sell_in decreased" do
-    expect{inverse_update.update}.to change{item.sell_in}.by -1
-    expect{inverse_update.update}.to change{item.quality}.by 1
+  it "items sell_in and quality are modified by update" do
+    inverse_update.update
+    expect(item).to have_received :sell_in
+    expect(item).to have_received :quality
   end
 end
